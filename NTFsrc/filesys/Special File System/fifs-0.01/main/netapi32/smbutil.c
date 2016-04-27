@@ -1,0 +1,546 @@
+/*
+
+   Copyright (C) 1998 Danilo Almeida.  All rights reserved.
+
+   NetBIOS snooper SMB utilities
+
+   This file is part of FIFS (Framework for Implementing File Systems). 
+
+   This software is distributed with NO WARRANTY OF ANY KIND.  No
+   author or distributor accepts any responsibility for the
+   consequences of using it, or for whether it serves any particular
+   purpose or works at all, unless he or she says so in writing.
+   Refer to the included modified Alladin Free Public License (the
+   "License") for full details.
+
+   Every copy of this software must include a copy of the License, in
+   a plain ASCII text file named COPYING.  The License grants you the
+   right to copy, modify and redistribute this software, but only
+   under certain conditions described in the License.  Among other
+   things, the License requires that the copyright notice and this
+   notice be preserved on all copies.
+
+*/
+
+#include "smball.h"
+
+typedef LPSTR (*SMB_DISPATCH_FUNC)(UCHAR, LPSTR, PNT_SMB_HEADER, DWORD, DWORD, BOOL);
+
+typedef LPSTR (*TRANS2_DISPATCH_FUNC)(UCHAR, LPSTR, PNT_SMB_HEADER, DWORD, DWORD, BOOL, PUCHAR*, PUCHAR*);
+
+SMB_DISPATCH_FUNC SmbDispatchTable[0x100] = {0};
+TRANS2_DISPATCH_FUNC Trans2DispatchTable[0x100] = {0};
+
+#if TRANS2_MAX_FUNCTION > 0xFF
+#pragma error "TRANS2_MAX_FUNCTION > 0xFF"
+#endif
+
+VOID
+SmbInitDispTable(
+    )
+{
+    ZeroMemory((PVOID) SmbDispatchTable, sizeof(SmbDispatchTable));
+    SmbDispatchTable[SMB_COM_NEGOTIATE] = SmbComNegotiate;
+    SmbDispatchTable[SMB_COM_TRANSACTION2] = SmbComTrans2;
+    SmbDispatchTable[SMB_COM_SESSION_SETUP_ANDX] = SmbComSessionSetupAndx;
+    SmbDispatchTable[SMB_COM_TREE_CONNECT_ANDX] = SmbComTreeConnectAndx;
+    SmbDispatchTable[SMB_COM_NO_ANDX_COMMAND] = SmbComNoAndx;
+
+    ZeroMemory((PVOID) Trans2DispatchTable, sizeof(Trans2DispatchTable));
+    Trans2DispatchTable[TRANS2_QUERY_FS_INFORMATION] = Trans2QueryFsInfo;
+    Trans2DispatchTable[TRANS2_FIND_FIRST2] = Trans2FindFirst2;
+    Trans2DispatchTable[TRANS2_FIND_NEXT2] = Trans2FindNext2;
+}
+
+BOOL
+IsSmb(
+    PVOID psmb,
+    DWORD dwSize
+    )
+{
+    PNT_SMB_HEADER pSmb = (PNT_SMB_HEADER) psmb;
+    return (pSmb && (dwSize >= sizeof(NT_SMB_HEADER)) &&
+            (*(PULONG)pSmb->Protocol == SMB_HEADER_PROTOCOL));
+}
+
+LPSTR
+SmbDispatch(
+    UCHAR command,
+    LPSTR buffer,
+    PNT_SMB_HEADER pSmb,
+    DWORD dwSize,
+    DWORD dwOffset,
+    BOOL bRequest
+    )
+{
+    buffer += wsprintf(buffer,
+                       "- parameter block - <0x%02x = %s>\n",
+                       command,
+                       SmbUnparseCommand(command));
+    if (SmbDispatchTable[command])
+        return SmbDispatchTable[command](command, 
+                                         buffer, pSmb, dwSize, 
+                                         dwOffset, bRequest);
+    else
+        return buffer += wsprintf(buffer, "(cannot dump this command)\n");
+}
+
+LPSTR
+Trans2Dispatch(
+    USHORT cmd,
+    LPSTR buffer,
+    PNT_SMB_HEADER pSmb,
+    DWORD dwSize,
+    DWORD dwOffset,
+    BOOL bRequest,
+    PUCHAR *ppParameter,
+    PUCHAR *ppData
+    )
+{
+    UCHAR command = (UCHAR) cmd;
+
+    buffer += wsprintf(buffer,
+                       "- parameter block - <0x%02x = %s>\n",
+                       command,
+                       SmbUnparseTrans2(command));
+    if (cmd > 0xFF)
+        return buffer += wsprintf(buffer, "(TRANS2 function > 0xFF)\n");
+    if (command > TRANS2_MAX_FUNCTION)
+        return buffer += wsprintf(buffer, "(TRANS2 function > maximum)\n");
+    if (Trans2DispatchTable[command])
+        return Trans2DispatchTable[command](command, 
+                                            buffer, pSmb, dwSize, 
+                                            dwOffset, bRequest,
+                                            ppParameter, ppData);
+    else
+        return buffer += wsprintf(buffer, "(cannot dump this function)\n");
+}   
+
+#define XLAT_STRING(code) static const UCHAR STRING_##code[] = #code
+#define XLAT_CASE(code) case code: return STRING_##code
+#define XLAT_STRING_DEFAULT XLAT_STRING(Unknown)
+#define XLAT_CASE_DEFAULT default: return STRING_Unknown
+
+LPCSTR
+NcbUnparseAsynch(
+    UCHAR command
+    )
+{
+    static const char* asynch = "ASYNCH";
+    static const char* synch = "SYNCH";
+    return (command & ASYNCH)?asynch:synch;
+}
+
+LPCSTR
+NcbUnparseCommand(
+    UCHAR command
+    )
+{
+    XLAT_STRING_DEFAULT;
+
+    XLAT_STRING(NCBCALL);
+    XLAT_STRING(NCBLISTEN);
+    XLAT_STRING(NCBHANGUP);
+    XLAT_STRING(NCBSEND);
+    XLAT_STRING(NCBRECV);
+    XLAT_STRING(NCBRECVANY);
+    XLAT_STRING(NCBCHAINSEND);
+    XLAT_STRING(NCBDGSEND);
+    XLAT_STRING(NCBDGRECV);
+    XLAT_STRING(NCBDGSENDBC);
+    XLAT_STRING(NCBDGRECVBC);
+    XLAT_STRING(NCBADDNAME);
+    XLAT_STRING(NCBDELNAME);
+    XLAT_STRING(NCBRESET);
+    XLAT_STRING(NCBASTAT);
+    XLAT_STRING(NCBSSTAT);
+    XLAT_STRING(NCBCANCEL);
+    XLAT_STRING(NCBADDGRNAME);
+    XLAT_STRING(NCBENUM);
+    XLAT_STRING(NCBUNLINK);
+    XLAT_STRING(NCBSENDNA);
+    XLAT_STRING(NCBCHAINSENDNA);
+    XLAT_STRING(NCBLANSTALERT);
+    XLAT_STRING(NCBACTION);
+    XLAT_STRING(NCBFINDNAME);
+    XLAT_STRING(NCBTRACE);
+
+    command &= ~ASYNCH;
+    switch (command) {
+        XLAT_CASE(NCBCALL);
+        XLAT_CASE(NCBLISTEN);
+        XLAT_CASE(NCBHANGUP);
+        XLAT_CASE(NCBSEND);
+        XLAT_CASE(NCBRECV);
+        XLAT_CASE(NCBRECVANY);
+        XLAT_CASE(NCBCHAINSEND);
+        XLAT_CASE(NCBDGSEND);
+        XLAT_CASE(NCBDGRECV);
+        XLAT_CASE(NCBDGSENDBC);
+        XLAT_CASE(NCBDGRECVBC);
+        XLAT_CASE(NCBADDNAME);
+        XLAT_CASE(NCBDELNAME);
+        XLAT_CASE(NCBRESET);
+        XLAT_CASE(NCBASTAT);
+        XLAT_CASE(NCBSSTAT);
+        XLAT_CASE(NCBCANCEL);
+        XLAT_CASE(NCBADDGRNAME);
+        XLAT_CASE(NCBENUM);
+        XLAT_CASE(NCBUNLINK);
+        XLAT_CASE(NCBSENDNA);
+        XLAT_CASE(NCBCHAINSENDNA);
+        XLAT_CASE(NCBLANSTALERT);
+        XLAT_CASE(NCBACTION);
+        XLAT_CASE(NCBFINDNAME);
+        XLAT_CASE(NCBTRACE);
+        XLAT_CASE_DEFAULT;
+    }
+}
+
+LPCSTR
+NcbUnparseRetCode(
+    UCHAR retcode
+    )
+{
+    XLAT_STRING_DEFAULT;
+
+    XLAT_STRING(NRC_GOODRET);
+    XLAT_STRING(NRC_BUFLEN);
+    XLAT_STRING(NRC_ILLCMD);
+    XLAT_STRING(NRC_CMDTMO);
+    XLAT_STRING(NRC_INCOMP);
+    XLAT_STRING(NRC_BADDR);
+    XLAT_STRING(NRC_SNUMOUT);
+    XLAT_STRING(NRC_NORES);
+    XLAT_STRING(NRC_SCLOSED);
+    XLAT_STRING(NRC_CMDCAN);
+    XLAT_STRING(NRC_DUPNAME);
+    XLAT_STRING(NRC_NAMTFUL);
+    XLAT_STRING(NRC_ACTSES);
+    XLAT_STRING(NRC_LOCTFUL);
+    XLAT_STRING(NRC_REMTFUL);
+    XLAT_STRING(NRC_ILLNN);
+    XLAT_STRING(NRC_NOCALL);
+    XLAT_STRING(NRC_NOWILD);
+    XLAT_STRING(NRC_INUSE);
+    XLAT_STRING(NRC_NAMERR);
+    XLAT_STRING(NRC_SABORT);
+    XLAT_STRING(NRC_NAMCONF);
+    XLAT_STRING(NRC_IFBUSY);
+    XLAT_STRING(NRC_TOOMANY);
+    XLAT_STRING(NRC_BRIDGE);
+    XLAT_STRING(NRC_CANOCCR);
+    XLAT_STRING(NRC_CANCEL);
+    XLAT_STRING(NRC_DUPENV);
+    XLAT_STRING(NRC_ENVNOTDEF);
+    XLAT_STRING(NRC_OSRESNOTAV);
+    XLAT_STRING(NRC_MAXAPPS);
+    XLAT_STRING(NRC_NOSAPS);
+    XLAT_STRING(NRC_NORESOURCES);
+    XLAT_STRING(NRC_INVADDRESS);
+    XLAT_STRING(NRC_INVDDID);
+    XLAT_STRING(NRC_LOCKFAIL);
+    XLAT_STRING(NRC_OPENERR);
+    XLAT_STRING(NRC_SYSTEM);
+    XLAT_STRING(NRC_PENDING);
+
+    switch(retcode) {
+        XLAT_CASE(NRC_GOODRET);
+        XLAT_CASE(NRC_BUFLEN);
+        XLAT_CASE(NRC_ILLCMD);
+        XLAT_CASE(NRC_CMDTMO);
+        XLAT_CASE(NRC_INCOMP);
+        XLAT_CASE(NRC_BADDR);
+        XLAT_CASE(NRC_SNUMOUT);
+        XLAT_CASE(NRC_NORES);
+        XLAT_CASE(NRC_SCLOSED);
+        XLAT_CASE(NRC_CMDCAN);
+        XLAT_CASE(NRC_DUPNAME);
+        XLAT_CASE(NRC_NAMTFUL);
+        XLAT_CASE(NRC_ACTSES);
+        XLAT_CASE(NRC_LOCTFUL);
+        XLAT_CASE(NRC_REMTFUL);
+        XLAT_CASE(NRC_ILLNN);
+        XLAT_CASE(NRC_NOCALL);
+        XLAT_CASE(NRC_NOWILD);
+        XLAT_CASE(NRC_INUSE);
+        XLAT_CASE(NRC_NAMERR);
+        XLAT_CASE(NRC_SABORT);
+        XLAT_CASE(NRC_NAMCONF);
+        XLAT_CASE(NRC_IFBUSY);
+        XLAT_CASE(NRC_TOOMANY);
+        XLAT_CASE(NRC_BRIDGE);
+        XLAT_CASE(NRC_CANOCCR);
+        XLAT_CASE(NRC_CANCEL);
+        XLAT_CASE(NRC_DUPENV);
+        XLAT_CASE(NRC_ENVNOTDEF);
+        XLAT_CASE(NRC_OSRESNOTAV);
+        XLAT_CASE(NRC_MAXAPPS);
+        XLAT_CASE(NRC_NOSAPS);
+        XLAT_CASE(NRC_NORESOURCES);
+        XLAT_CASE(NRC_INVADDRESS);
+        XLAT_CASE(NRC_INVDDID);
+        XLAT_CASE(NRC_LOCKFAIL);
+        XLAT_CASE(NRC_OPENERR);
+        XLAT_CASE(NRC_SYSTEM);
+        XLAT_CASE(NRC_PENDING);
+        XLAT_CASE_DEFAULT;
+    }
+}
+
+LPCSTR
+SmbUnparseCommand(
+    UCHAR command
+    )
+{
+    XLAT_STRING_DEFAULT;
+    XLAT_STRING(SMB_COM_CREATE_DIRECTORY);
+    XLAT_STRING(SMB_COM_DELETE_DIRECTORY);
+    XLAT_STRING(SMB_COM_OPEN);
+    XLAT_STRING(SMB_COM_CREATE);
+    XLAT_STRING(SMB_COM_CLOSE);
+    XLAT_STRING(SMB_COM_FLUSH);
+    XLAT_STRING(SMB_COM_DELETE);
+    XLAT_STRING(SMB_COM_RENAME);
+    XLAT_STRING(SMB_COM_QUERY_INFORMATION);
+    XLAT_STRING(SMB_COM_SET_INFORMATION);
+    XLAT_STRING(SMB_COM_READ);
+    XLAT_STRING(SMB_COM_WRITE);
+    XLAT_STRING(SMB_COM_LOCK_BYTE_RANGE);
+    XLAT_STRING(SMB_COM_UNLOCK_BYTE_RANGE);
+    XLAT_STRING(SMB_COM_CREATE_TEMPORARY);
+    XLAT_STRING(SMB_COM_CREATE_NEW);
+    XLAT_STRING(SMB_COM_CHECK_DIRECTORY);
+    XLAT_STRING(SMB_COM_PROCESS_EXIT);
+    XLAT_STRING(SMB_COM_SEEK);
+    XLAT_STRING(SMB_COM_LOCK_AND_READ);
+    XLAT_STRING(SMB_COM_WRITE_AND_UNLOCK);
+    XLAT_STRING(SMB_COM_READ_RAW);
+    XLAT_STRING(SMB_COM_READ_MPX);
+    XLAT_STRING(SMB_COM_READ_MPX_SECONDARY);    // server to redir only
+    XLAT_STRING(SMB_COM_WRITE_RAW);
+    XLAT_STRING(SMB_COM_WRITE_MPX);
+    XLAT_STRING(SMB_COM_WRITE_MPX_SECONDARY);
+    XLAT_STRING(SMB_COM_WRITE_COMPLETE);    // server to redir only
+    XLAT_STRING(SMB_COM_QUERY_INFORMATION_SRV);
+    XLAT_STRING(SMB_COM_SET_INFORMATION2);
+    XLAT_STRING(SMB_COM_QUERY_INFORMATION2);
+    XLAT_STRING(SMB_COM_LOCKING_ANDX);
+    XLAT_STRING(SMB_COM_TRANSACTION);
+    XLAT_STRING(SMB_COM_TRANSACTION_SECONDARY);
+    XLAT_STRING(SMB_COM_IOCTL);
+    XLAT_STRING(SMB_COM_IOCTL_SECONDARY);
+    XLAT_STRING(SMB_COM_COPY);
+    XLAT_STRING(SMB_COM_MOVE);
+    XLAT_STRING(SMB_COM_ECHO);
+    XLAT_STRING(SMB_COM_WRITE_AND_CLOSE);
+    XLAT_STRING(SMB_COM_OPEN_ANDX);
+    XLAT_STRING(SMB_COM_READ_ANDX);
+    XLAT_STRING(SMB_COM_WRITE_ANDX);
+    XLAT_STRING(SMB_COM_CLOSE_AND_TREE_DISC);
+    XLAT_STRING(SMB_COM_TRANSACTION2);
+    XLAT_STRING(SMB_COM_TRANSACTION2_SECONDARY);
+    XLAT_STRING(SMB_COM_FIND_CLOSE2);
+    XLAT_STRING(SMB_COM_FIND_NOTIFY_CLOSE);
+    XLAT_STRING(SMB_COM_TREE_CONNECT);
+    XLAT_STRING(SMB_COM_TREE_DISCONNECT);
+    XLAT_STRING(SMB_COM_NEGOTIATE);
+    XLAT_STRING(SMB_COM_SESSION_SETUP_ANDX);
+    XLAT_STRING(SMB_COM_LOGOFF_ANDX);
+    XLAT_STRING(SMB_COM_TREE_CONNECT_ANDX);
+    XLAT_STRING(SMB_COM_QUERY_INFORMATION_DISK);
+    XLAT_STRING(SMB_COM_SEARCH);
+    XLAT_STRING(SMB_COM_FIND);
+    XLAT_STRING(SMB_COM_FIND_UNIQUE);
+    XLAT_STRING(SMB_COM_FIND_CLOSE);
+    XLAT_STRING(SMB_COM_NT_TRANSACT);
+    XLAT_STRING(SMB_COM_NT_TRANSACT_SECONDARY);
+    XLAT_STRING(SMB_COM_NT_CREATE_ANDX);
+    XLAT_STRING(SMB_COM_NT_CANCEL);
+    XLAT_STRING(SMB_COM_NT_RENAME);
+    XLAT_STRING(SMB_COM_OPEN_PRINT_FILE);
+    XLAT_STRING(SMB_COM_WRITE_PRINT_FILE);
+    XLAT_STRING(SMB_COM_CLOSE_PRINT_FILE);
+    XLAT_STRING(SMB_COM_GET_PRINT_QUEUE);
+    XLAT_STRING(SMB_COM_SEND_MESSAGE);
+    XLAT_STRING(SMB_COM_SEND_BROADCAST_MESSAGE);
+    XLAT_STRING(SMB_COM_FORWARD_USER_NAME);
+    XLAT_STRING(SMB_COM_CANCEL_FORWARD);
+    XLAT_STRING(SMB_COM_GET_MACHINE_NAME);
+    XLAT_STRING(SMB_COM_SEND_START_MB_MESSAGE);
+    XLAT_STRING(SMB_COM_SEND_END_MB_MESSAGE);
+    XLAT_STRING(SMB_COM_SEND_TEXT_MB_MESSAGE);
+
+    switch (command)
+    {
+        XLAT_CASE(SMB_COM_CREATE_DIRECTORY);
+        XLAT_CASE(SMB_COM_DELETE_DIRECTORY);
+        XLAT_CASE(SMB_COM_OPEN);
+        XLAT_CASE(SMB_COM_CREATE);
+        XLAT_CASE(SMB_COM_CLOSE);
+        XLAT_CASE(SMB_COM_FLUSH);
+        XLAT_CASE(SMB_COM_DELETE);
+        XLAT_CASE(SMB_COM_RENAME);
+        XLAT_CASE(SMB_COM_QUERY_INFORMATION);
+        XLAT_CASE(SMB_COM_SET_INFORMATION);
+        XLAT_CASE(SMB_COM_READ);
+        XLAT_CASE(SMB_COM_WRITE);
+        XLAT_CASE(SMB_COM_LOCK_BYTE_RANGE);
+        XLAT_CASE(SMB_COM_UNLOCK_BYTE_RANGE);
+        XLAT_CASE(SMB_COM_CREATE_TEMPORARY);
+        XLAT_CASE(SMB_COM_CREATE_NEW);
+        XLAT_CASE(SMB_COM_CHECK_DIRECTORY);
+        XLAT_CASE(SMB_COM_PROCESS_EXIT);
+        XLAT_CASE(SMB_COM_SEEK);
+        XLAT_CASE(SMB_COM_LOCK_AND_READ);
+        XLAT_CASE(SMB_COM_WRITE_AND_UNLOCK);
+        XLAT_CASE(SMB_COM_READ_RAW);
+        XLAT_CASE(SMB_COM_READ_MPX);
+        XLAT_CASE(SMB_COM_READ_MPX_SECONDARY);    // server to redir only
+        XLAT_CASE(SMB_COM_WRITE_RAW);
+        XLAT_CASE(SMB_COM_WRITE_MPX);
+        XLAT_CASE(SMB_COM_WRITE_MPX_SECONDARY);
+        XLAT_CASE(SMB_COM_WRITE_COMPLETE);    // server to redir only
+        XLAT_CASE(SMB_COM_QUERY_INFORMATION_SRV);
+        XLAT_CASE(SMB_COM_SET_INFORMATION2);
+        XLAT_CASE(SMB_COM_QUERY_INFORMATION2);
+        XLAT_CASE(SMB_COM_LOCKING_ANDX);
+        XLAT_CASE(SMB_COM_TRANSACTION);
+        XLAT_CASE(SMB_COM_TRANSACTION_SECONDARY);
+        XLAT_CASE(SMB_COM_IOCTL);
+        XLAT_CASE(SMB_COM_IOCTL_SECONDARY);
+        XLAT_CASE(SMB_COM_COPY);
+        XLAT_CASE(SMB_COM_MOVE);
+        XLAT_CASE(SMB_COM_ECHO);
+        XLAT_CASE(SMB_COM_WRITE_AND_CLOSE);
+        XLAT_CASE(SMB_COM_OPEN_ANDX);
+        XLAT_CASE(SMB_COM_READ_ANDX);
+        XLAT_CASE(SMB_COM_WRITE_ANDX);
+        XLAT_CASE(SMB_COM_CLOSE_AND_TREE_DISC);
+        XLAT_CASE(SMB_COM_TRANSACTION2);
+        XLAT_CASE(SMB_COM_TRANSACTION2_SECONDARY);
+        XLAT_CASE(SMB_COM_FIND_CLOSE2);
+        XLAT_CASE(SMB_COM_FIND_NOTIFY_CLOSE);
+        XLAT_CASE(SMB_COM_TREE_CONNECT);
+        XLAT_CASE(SMB_COM_TREE_DISCONNECT);
+        XLAT_CASE(SMB_COM_NEGOTIATE);
+        XLAT_CASE(SMB_COM_SESSION_SETUP_ANDX);
+        XLAT_CASE(SMB_COM_LOGOFF_ANDX);
+        XLAT_CASE(SMB_COM_TREE_CONNECT_ANDX);
+        XLAT_CASE(SMB_COM_QUERY_INFORMATION_DISK);
+        XLAT_CASE(SMB_COM_SEARCH);
+        XLAT_CASE(SMB_COM_FIND);
+        XLAT_CASE(SMB_COM_FIND_UNIQUE);
+        XLAT_CASE(SMB_COM_FIND_CLOSE);
+        XLAT_CASE(SMB_COM_NT_TRANSACT);
+        XLAT_CASE(SMB_COM_NT_TRANSACT_SECONDARY);
+        XLAT_CASE(SMB_COM_NT_CREATE_ANDX);
+        XLAT_CASE(SMB_COM_NT_CANCEL);
+        XLAT_CASE(SMB_COM_NT_RENAME);
+        XLAT_CASE(SMB_COM_OPEN_PRINT_FILE);
+        XLAT_CASE(SMB_COM_WRITE_PRINT_FILE);
+        XLAT_CASE(SMB_COM_CLOSE_PRINT_FILE);
+        XLAT_CASE(SMB_COM_GET_PRINT_QUEUE);
+        XLAT_CASE(SMB_COM_SEND_MESSAGE);
+        XLAT_CASE(SMB_COM_SEND_BROADCAST_MESSAGE);
+        XLAT_CASE(SMB_COM_FORWARD_USER_NAME);
+        XLAT_CASE(SMB_COM_CANCEL_FORWARD);
+        XLAT_CASE(SMB_COM_GET_MACHINE_NAME);
+        XLAT_CASE(SMB_COM_SEND_START_MB_MESSAGE);
+        XLAT_CASE(SMB_COM_SEND_END_MB_MESSAGE);
+        XLAT_CASE(SMB_COM_SEND_TEXT_MB_MESSAGE);
+        XLAT_CASE_DEFAULT;
+    }
+}
+
+LPCSTR
+SmbUnparseTrans2(
+    USHORT code
+    )
+{
+    XLAT_STRING_DEFAULT;
+    XLAT_STRING(TRANS2_OPEN2);
+    XLAT_STRING(TRANS2_FIND_FIRST2);
+    XLAT_STRING(TRANS2_FIND_NEXT2);
+    XLAT_STRING(TRANS2_QUERY_FS_INFORMATION);
+    XLAT_STRING(TRANS2_SET_FS_INFORMATION);
+    XLAT_STRING(TRANS2_QUERY_PATH_INFORMATION);
+    XLAT_STRING(TRANS2_SET_PATH_INFORMATION);
+    XLAT_STRING(TRANS2_QUERY_FILE_INFORMATION);
+    XLAT_STRING(TRANS2_SET_FILE_INFORMATION);
+    XLAT_STRING(TRANS2_FSCTL);
+    XLAT_STRING(TRANS2_IOCTL2);
+    XLAT_STRING(TRANS2_FIND_NOTIFY_FIRST);
+    XLAT_STRING(TRANS2_FIND_NOTIFY_NEXT);
+    XLAT_STRING(TRANS2_CREATE_DIRECTORY);
+    XLAT_STRING(TRANS2_SESSION_SETUP);
+    XLAT_STRING(TRANS2_QUERY_FS_INFORMATION_FID);
+    XLAT_STRING(TRANS2_GET_DFS_REFERRAL);
+    XLAT_STRING(TRANS2_REPORT_DFS_INCONSISTENCY);
+
+    switch (code)
+    {
+        XLAT_CASE(TRANS2_OPEN2);
+        XLAT_CASE(TRANS2_FIND_FIRST2);
+        XLAT_CASE(TRANS2_FIND_NEXT2);
+        XLAT_CASE(TRANS2_QUERY_FS_INFORMATION);
+        XLAT_CASE(TRANS2_SET_FS_INFORMATION);
+        XLAT_CASE(TRANS2_QUERY_PATH_INFORMATION);
+        XLAT_CASE(TRANS2_SET_PATH_INFORMATION);
+        XLAT_CASE(TRANS2_QUERY_FILE_INFORMATION);
+        XLAT_CASE(TRANS2_SET_FILE_INFORMATION);
+        XLAT_CASE(TRANS2_FSCTL);
+        XLAT_CASE(TRANS2_IOCTL2);
+        XLAT_CASE(TRANS2_FIND_NOTIFY_FIRST);
+        XLAT_CASE(TRANS2_FIND_NOTIFY_NEXT);
+        XLAT_CASE(TRANS2_CREATE_DIRECTORY);
+        XLAT_CASE(TRANS2_SESSION_SETUP);
+        XLAT_CASE(TRANS2_QUERY_FS_INFORMATION_FID);
+        XLAT_CASE(TRANS2_GET_DFS_REFERRAL);
+        XLAT_CASE(TRANS2_REPORT_DFS_INCONSISTENCY);
+        XLAT_CASE_DEFAULT;
+    }
+}
+
+LPSTR
+SmbDumpDate(
+    LPSTR buffer,
+    SMB_DATE Date
+    )
+{
+    buffer += wsprintf(buffer, "%02d/%02d/%04d",
+                       Date.Struct.Day,
+                       Date.Struct.Month,
+                       Date.Struct.Year + 1980);
+    return buffer;
+}
+
+LPSTR
+SmbDumpTime(
+    LPSTR buffer,
+    SMB_TIME Time
+    )
+{
+    buffer += wsprintf(buffer, "%02d:%02d:%02d",
+                       Time.Struct.Hours,
+                       Time.Struct.Minutes,
+                       Time.Struct.TwoSeconds * 2);
+    return buffer;
+}
+
+LPSTR
+SmbDumpSecurityMode(
+    LPSTR buffer,
+    USHORT SecurityMode
+    )
+{
+#define SECURITY_MODE_USER 1
+#define SECURITY_MODE_CHAL_RESP 2
+    if (SecurityMode & SECURITY_MODE_USER)
+        buffer += wsprintf(buffer, "user");
+    else
+        buffer += wsprintf(buffer, "share");
+    if (SecurityMode & SECURITY_MODE_CHAL_RESP)
+        buffer += wsprintf(buffer, ", chal/resp");
+    return buffer;
+}

@@ -1,0 +1,149 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "fshelper"=.\main\helpdll\fshelper.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "fsmunge"=.\filesys\fsmunge\fsmunge.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name fshelper
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "fsnfs"=.\filesys\fsnfs\fsnfs.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name fshelper
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "fst"=.\test\fst\fst.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "fswin32"=.\filesys\fswin32\fswin32.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name fshelper
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "helplib"=.\main\helplib\helplib.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "nbt"=.\test\nbt\nbt.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "netapi32"=.\main\netapi32\netapi32.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "server"=.\main\server\server.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name helplib
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name fshelper
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name fswin32
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name fsmunge
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name fsnfs
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+

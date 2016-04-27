@@ -1,0 +1,8 @@
+TARGETNAME=filedisk
+TARGETPATH=obj
+TARGETTYPE=PROGRAM
+UMTYPE=console
+USE_MSVCRT=1
+INCLUDES=..\sys\inc
+TARGETLIBS=$(SDK_LIB_PATH)\shell32.lib
+SOURCES=filedisk.c filedisk.rc

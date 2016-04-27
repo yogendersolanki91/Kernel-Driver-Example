@@ -1,0 +1,122 @@
+# Microsoft Developer Studio Generated Dependency File, included by fsnfs.mak
+
+.\conf_nfs.cxx : \
+	"..\..\..\frontrpc\include\rpc\auth.h"\
+	"..\..\..\frontrpc\include\rpc\auth_unix.h"\
+	"..\..\..\frontrpc\include\rpc\clnt.h"\
+	"..\..\..\frontrpc\include\rpc\netdb.h"\
+	"..\..\..\frontrpc\include\rpc\nt.h"\
+	"..\..\..\frontrpc\include\rpc\rpc_msg.h"\
+	"..\..\..\frontrpc\include\rpc\svc.h"\
+	"..\..\..\frontrpc\include\rpc\svc_auth.h"\
+	"..\..\..\frontrpc\include\rpc\xdr.h"\
+	"..\..\include\conf_help.hxx"\
+	"..\..\include\debug.hxx"\
+	".\conf_nfs.hxx"\
+	
+
+.\fs_nfs.cxx : \
+	"..\..\..\frontrpc\include\rpc\auth.h"\
+	"..\..\..\frontrpc\include\rpc\auth_unix.h"\
+	"..\..\..\frontrpc\include\rpc\clnt.h"\
+	"..\..\..\frontrpc\include\rpc\netdb.h"\
+	"..\..\..\frontrpc\include\rpc\nt.h"\
+	"..\..\..\frontrpc\include\rpc\rpc_msg.h"\
+	"..\..\..\frontrpc\include\rpc\svc.h"\
+	"..\..\..\frontrpc\include\rpc\svc_auth.h"\
+	"..\..\..\frontrpc\include\rpc\xdr.h"\
+	"..\..\include\autolock.hxx"\
+	"..\..\include\fsinterface.hxx"\
+	".\conf_nfs.hxx"\
+	".\fs_nfs.hxx"\
+	".\fsdt_nfs.hxx"\
+	".\mount_prot.h"\
+	".\nfs_prot.h"\
+	
+
+.\fsdt_nfs.cxx : \
+	"..\..\..\frontrpc\include\rpc\auth.h"\
+	"..\..\..\frontrpc\include\rpc\auth_unix.h"\
+	"..\..\..\frontrpc\include\rpc\clnt.h"\
+	"..\..\..\frontrpc\include\rpc\netdb.h"\
+	"..\..\..\frontrpc\include\rpc\nt.h"\
+	"..\..\..\frontrpc\include\rpc\rpc_msg.h"\
+	"..\..\..\frontrpc\include\rpc\svc.h"\
+	"..\..\..\frontrpc\include\rpc\svc_auth.h"\
+	"..\..\..\frontrpc\include\rpc\xdr.h"\
+	"..\..\include\autolock.hxx"\
+	"..\..\include\debug.hxx"\
+	"..\..\include\fsinterface.hxx"\
+	".\conf_nfs.hxx"\
+	".\fs_nfs.hxx"\
+	".\fsdt_nfs.hxx"\
+	".\mount_prot.h"\
+	".\nfs_prot.h"\
+	
+
+.\main_nfs.cxx : \
+	"..\..\..\frontrpc\include\rpc\auth.h"\
+	"..\..\..\frontrpc\include\rpc\auth_unix.h"\
+	"..\..\..\frontrpc\include\rpc\clnt.h"\
+	"..\..\..\frontrpc\include\rpc\netdb.h"\
+	"..\..\..\frontrpc\include\rpc\nt.h"\
+	"..\..\..\frontrpc\include\rpc\rpc_msg.h"\
+	"..\..\..\frontrpc\include\rpc\svc.h"\
+	"..\..\..\frontrpc\include\rpc\svc_auth.h"\
+	"..\..\..\frontrpc\include\rpc\xdr.h"\
+	"..\..\include\fsinterface.hxx"\
+	".\conf_nfs.hxx"\
+	".\fs_nfs.hxx"\
+	
+
+.\mount_prot_clnt.c : \
+	"..\..\..\frontrpc\include\rpc\auth.h"\
+	"..\..\..\frontrpc\include\rpc\auth_unix.h"\
+	"..\..\..\frontrpc\include\rpc\clnt.h"\
+	"..\..\..\frontrpc\include\rpc\netdb.h"\
+	"..\..\..\frontrpc\include\rpc\nt.h"\
+	"..\..\..\frontrpc\include\rpc\rpc_msg.h"\
+	"..\..\..\frontrpc\include\rpc\svc.h"\
+	"..\..\..\frontrpc\include\rpc\svc_auth.h"\
+	"..\..\..\frontrpc\include\rpc\xdr.h"\
+	".\mount_prot.h"\
+	
+
+.\mount_prot_xdr.c : \
+	"..\..\..\frontrpc\include\rpc\auth.h"\
+	"..\..\..\frontrpc\include\rpc\auth_unix.h"\
+	"..\..\..\frontrpc\include\rpc\clnt.h"\
+	"..\..\..\frontrpc\include\rpc\netdb.h"\
+	"..\..\..\frontrpc\include\rpc\nt.h"\
+	"..\..\..\frontrpc\include\rpc\rpc_msg.h"\
+	"..\..\..\frontrpc\include\rpc\svc.h"\
+	"..\..\..\frontrpc\include\rpc\svc_auth.h"\
+	"..\..\..\frontrpc\include\rpc\xdr.h"\
+	".\mount_prot.h"\
+	
+
+.\nfs_prot_clnt.c : \
+	"..\..\..\frontrpc\include\rpc\auth.h"\
+	"..\..\..\frontrpc\include\rpc\auth_unix.h"\
+	"..\..\..\frontrpc\include\rpc\clnt.h"\
+	"..\..\..\frontrpc\include\rpc\netdb.h"\
+	"..\..\..\frontrpc\include\rpc\nt.h"\
+	"..\..\..\frontrpc\include\rpc\rpc_msg.h"\
+	"..\..\..\frontrpc\include\rpc\svc.h"\
+	"..\..\..\frontrpc\include\rpc\svc_auth.h"\
+	"..\..\..\frontrpc\include\rpc\xdr.h"\
+	".\nfs_prot.h"\
+	
+
+.\nfs_prot_xdr.c : \
+	"..\..\..\frontrpc\include\rpc\auth.h"\
+	"..\..\..\frontrpc\include\rpc\auth_unix.h"\
+	"..\..\..\frontrpc\include\rpc\clnt.h"\
+	"..\..\..\frontrpc\include\rpc\netdb.h"\
+	"..\..\..\frontrpc\include\rpc\nt.h"\
+	"..\..\..\frontrpc\include\rpc\rpc_msg.h"\
+	"..\..\..\frontrpc\include\rpc\svc.h"\
+	"..\..\..\frontrpc\include\rpc\svc_auth.h"\
+	"..\..\..\frontrpc\include\rpc\xdr.h"\
+	".\nfs_prot.h"\
+	

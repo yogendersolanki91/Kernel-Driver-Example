@@ -1,0 +1,11 @@
+
+IMDISK_VERSION=2.0.9
+
+DIST_DIR=p:\utils
+UPLOAD_DIR=z:\ltr-website\ltr-data.se\files\
+
+SIGNTOOL=signtool sign /a /v
+COMPANYNAME=Lagerkvist Teknisk Radgivning i Boras HB
+COMPANYURL=http://www.ltr-data.se
+CERTPATH=$(MAKEDIR)\..\cert\MSCV-GlobalSign.cer
+

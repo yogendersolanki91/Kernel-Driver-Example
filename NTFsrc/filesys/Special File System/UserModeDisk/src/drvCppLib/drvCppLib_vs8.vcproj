@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="drvCppLib"
+	ProjectGUID="{13ECD6DD-04F8-4F75-B763-609CCB333115}"
+	RootNamespace="drvCppLib"
+	>
+	<Platforms>
+		<Platform
+			Name="Win32"
+		/>
+	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="$(SolutionDir)..\bin\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)..\obj\$(ConfigurationName)\$(ProjectName)"
+			ConfigurationType="0"
+			>
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="call build.bat  $(BASEDIR) $(ConfigurationName) $(ProjectDir) $(SolutionDir)  &quot;lib_copy&quot;"
+				ReBuildCommandLine="call build.bat  $(BASEDIR) $(ConfigurationName) $(ProjectDir) $(SolutionDir)  &quot;lib_copy&quot;"
+				CleanCommandLine=""
+				Output=""
+				PreprocessorDefinitions=""
+				IncludeSearchPath=""
+				ForcedIncludes=""
+				AssemblySearchPath=""
+				ForcedUsingAssemblies=""
+				CompileAsManaged=""
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="..\..\bin\$(ConfigurationName)"
+			IntermediateDirectory="..\..\obj\$(ConfigurationName)\$(ProjectName)"
+			ConfigurationType="0"
+			>
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="call build.bat  $(BASEDIR) $(ConfigurationName) $(ProjectDir) $(SolutionDir)  &quot;lib_copy&quot;"
+				ReBuildCommandLine="call build.bat  $(BASEDIR) $(ConfigurationName) $(ProjectDir) $(SolutionDir)  &quot;lib_copy&quot;"
+				CleanCommandLine=""
+				Output=""
+				PreprocessorDefinitions=""
+				IncludeSearchPath=""
+				ForcedIncludes=""
+				AssemblySearchPath=""
+				ForcedUsingAssemblies=""
+				CompileAsManaged=""
+			/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
+			>
+			<File
+				RelativePath=".\libcpp.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc"
+			>
+			<File
+				RelativePath=".\libcpp.h"
+				>
+			</File>
+			<File
+				RelativePath=".\new.h"
+				>
+			</File>
+			<File
+				RelativePath=".\typeinfo.h"
+				>
+			</File>
+		</Filter>
+		<File
+			RelativePath=".\build.bat"
+			>
+		</File>
+		<File
+			RelativePath=".\Makefile"
+			>
+		</File>
+		<File
+			RelativePath=".\Sources"
+			>
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

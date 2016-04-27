@@ -1,0 +1,141 @@
+BUILD: Computing Include file dependencies:
+BUILD: Examining d:\library\ntfsrc\fsrec\src directory for files to compile.
+1>Compiling and Linking d:\library\ntfsrc\fsrec\src *************
+1>'nmake.exe /nologo BUILDMSG=Stop. -i BUILD_PASS=PASS2 LINKONLY=1 NOPASS0=1 MAKEDIR_RELATIVE_TO_BASEDIR='
+1>d:\library\ntfsrc\fsrec\src: TARGETPATH is obj
+1> d:\software\winddk\7600.16385.1\bin\x86\ia64\cl @d:\library\ntfsrc\fsrec\src\objchk_win7_ia64\ia64\cl.rsp
+1>Microsoft (R) C/C++ Optimizing Compiler Version 15.00.30729.207 for Itanium
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Fo"d:\library\ntfsrc\fsrec\src\objchk_win7_ia64\ia64/"
+1> /FC
+1> /Iia64
+1> /I.
+1> /I..\inc
+1> /I\ddk-40\inc
+1> /I\fsdk-40\inc
+1> /Id:\library\ntfsrc\fsrec\src\objchk_win7_ia64\ia64
+1> /ID:\software\WinDDK\7600.16385.1\inc\api
+1> /ID:\software\WinDDK\7600.16385.1\inc\api
+1> /ID:\software\WinDDK\7600.16385.1\inc\ddk
+1> /ID:\software\WinDDK\7600.16385.1\inc\ddk
+1> /ID:\software\WinDDK\7600.16385.1\inc\crt
+1> /D_WIN64
+1> /D_IA64_=1
+1> /DIA64=1
+1> /DNO_HW_DETECT
+1> /D_MSC_EXTENSIONS
+1> /DCONDITION_HANDLING=1
+1> /DNT_UP=1
+1> /DNT_INST=0
+1> /DWIN32=100
+1> /D_NT1X_=100
+1> /DWINNT=1
+1> /D_WIN32_WINNT=0x0601
+1> /DWINVER=0x0601
+1> /D_WIN32_IE=0x0800
+1> /DWIN32_LEAN_AND_MEAN=1
+1> /D_MERCED_A0_=1
+1> /DDEVL=1
+1> /DDBG=1
+1> /D__BUILDMACHINE__=WinDDK
+1> /DFPO=0
+1> /D_DLL=1
+1> /DNDEBUG
+1> -DUNICODE
+1> -D_CPU_X86_
+1> /DDEPRECATE_DDK_FUNCTIONS=1
+1> /DMSC_NOOPT
+1> /DNTDDI_VERSION=0x06010000
+1> /c
+1> /Zc:wchar_t-
+1> /Zl
+1> /Zp8
+1> /Gy
+1> -cbstring
+1> /W3
+1> /EHs-c-
+1> /GR-
+1> /GF
+1> /GS
+1> /Zi
+1> /Od
+1> /Oi
+1> /QIPF_fr32
+1> /QIPF_noPIC
+1> /GL
+1> /Zi
+1> /Fdd:\library\ntfsrc\fsrec\src\objchk_win7_ia64\ia64\
+1> /DKMDF_MAJOR_VERSION_STRING=01
+1> /DKMDF_MINOR_VERSION_STRING=009
+1> /typedil-
+1> /wd4603
+1> /wd4627
+1> /FID:\software\WinDDK\7600.16385.1\inc\api\warning.h
+1> .\sfsrec.c 
+1>sfsrec.c
+1>d:\library\ntfsrc\fsrec\src\sfsrec.c(25) : warning C4273: 'ZwLoadDriver' : inconsistent dll linkage
+1>warnings in directory d:\library\ntfsrc\fsrec\src
+1>d:\library\ntfsrc\fsrec\src\sfsrec.c(25) : warning C4273: 'ZwLoadDriver' : inconsistent dll linkage
+1> d:\software\winddk\7600.16385.1\inc\ddk\wdm.h(28561) : see previous definition of 'ZwLoadDriver'
+1> link.exe /out:d:\library\ntfsrc\fsrec\src\objchk_win7_ia64\ia64\sfsrec.sys /machine:ia64 @d:\library\ntfsrc\fsrec\src\objchk_win7_ia64\ia64\lnk.rsp
+1>Microsoft (R) Incremental Linker Version 9.00.30729.207
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>/MERGE:_PAGE=PAGE 
+1>/MERGE:_TEXT=.text 
+1>/SECTION:INIT,d 
+1>/OPT:REF 
+1>/OPT:ICF 
+1>/IGNORE:4198,4010,4037,4039,4065,4070,4078,4087,4089,4221,4108,4088,4218,4218,4235 
+1>/INCREMENTAL:NO 
+1>/release 
+1>/NODEFAULTLIB 
+1>/WX 
+1>/debug 
+1>/debugtype:cv,fixup,pdata 
+1>/version:6.1 
+1>/osversion:6.1 
+1>/debugtype:pdata 
+1>/pdbcompress 
+1>/STACK:0x40000,0x1000 
+1>/driver 
+1>/base:0x10000 
+1>/subsystem:native,6.01 
+1>/entry:GsDriverEntry 
+1>/out:d:\library\ntfsrc\fsrec\src\objchk_win7_ia64\ia64\sfsrec.sys 
+1>d:\library\ntfsrc\fsrec\src\objchk_win7_ia64\ia64\sfsrec.obj 
+1>D:\software\WinDDK\7600.16385.1\lib\win7\ia64\BufferOverflowK.lib 
+1>D:\software\WinDDK\7600.16385.1\lib\win7\ia64\ntoskrnl.lib 
+1>D:\software\WinDDK\7600.16385.1\lib\win7\ia64\hal.lib 
+1>D:\software\WinDDK\7600.16385.1\lib\win7\ia64\wmilib.lib 
+1>sfsrec.obj : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+1>Microsoft (R) Incremental Linker Version 9.00.30729.207
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>/MERGE:_PAGE=PAGE 
+1>/MERGE:_TEXT=.text 
+1>/SECTION:INIT,d 
+1>/OPT:REF 
+1>/OPT:ICF 
+1>/IGNORE:4198,4010,4037,4039,4065,4070,4078,4087,4089,4221,4108,4088,4218,4218,4235 
+1>/INCREMENTAL:NO 
+1>/release 
+1>/NODEFAULTLIB 
+1>/WX 
+1>/debug 
+1>/debugtype:cv,fixup,pdata 
+1>/version:6.1 
+1>/osversion:6.1 
+1>/debugtype:pdata 
+1>/pdbcompress 
+1>/STACK:0x40000,0x1000 
+1>/driver 
+1>/base:0x10000 
+1>/subsystem:native,6.01 
+1>/entry:GsDriverEntry 
+1>/out:d:\library\ntfsrc\fsrec\src\objchk_win7_ia64\ia64\sfsrec.sys 
+1>d:\library\ntfsrc\fsrec\src\objchk_win7_ia64\ia64\sfsrec.obj 
+1>D:\software\WinDDK\7600.16385.1\lib\win7\ia64\BufferOverflowK.lib 
+1>D:\software\WinDDK\7600.16385.1\lib\win7\ia64\ntoskrnl.lib 
+1>D:\software\WinDDK\7600.16385.1\lib\win7\ia64\hal.lib 
+1>D:\software\WinDDK\7600.16385.1\lib\win7\ia64\wmilib.lib 
+1>Generating code
+1>Finished generating code

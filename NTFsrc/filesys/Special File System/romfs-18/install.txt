@@ -1,0 +1,13 @@
+Copy the driver (romfs.sys) to %systemroot%\system32\drivers\.
+
+Edit romfs.reg to assign drive letters to the romfs partitions if any.
+(/dev/hda1 in Linux = \\Device\\Harddisk0\\Partition1 in NT, an extended
+partition is skipped in the enumeration)
+
+Import romfs.reg to the Registry.
+
+Reboot. If using an unsigned driver and running on the 64-bit version
+of Windows press F8 and select "Disable enforce driver signing".
+
+If using manual start load the driver in the Control Panel or at the
+command line with "net start romfs".

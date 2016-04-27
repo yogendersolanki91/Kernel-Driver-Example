@@ -1,0 +1,18 @@
+LIBRARY FSHELPER
+
+EXPORTS
+    debug_acquire
+    debug_release
+
+    ConfigOpen
+    ConfigClose
+    ConfigAllocPath
+    ConfigFreePath
+    ConfigDefRangedNumber
+    ConfigDefString
+    ConfigUndefString
+    ConfigGetSizedData
+    ConfigGetData
+    ConfigFreeData
+
+    substitute_vars

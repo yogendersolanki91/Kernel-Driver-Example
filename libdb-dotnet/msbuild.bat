@@ -1,0 +1,1 @@
+%WINDIR%\Microsoft.NET\Framework\v2.0.50727\MSBuild.exe BerkeleyDB.sln /t:Rebuild /p:Configuration=Release

@@ -1,0 +1,6 @@
+TARGETNAME=filedisk
+TARGETPATH=..\obj\$(DDKBUILDENV)
+TARGETTYPE=DRIVER
+INCLUDES=..\inc
+TARGETLIBS=$(SDK_LIB_PATH)\wdmsec.lib
+SOURCES=filedisk.c filedisk.rc

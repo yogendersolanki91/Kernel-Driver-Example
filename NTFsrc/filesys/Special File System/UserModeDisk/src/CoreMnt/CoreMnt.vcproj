@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="9.00"
+	Name="CoreMnt"
+	ProjectGUID="{A2A1CB38-0274-42AD-9FC2-0BB787A4093A}"
+	TargetFrameworkVersion="0"
+	>
+	<Platforms>
+		<Platform
+			Name="Win32"
+		/>
+	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="$(SolutionDir)..\bin\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)..\obj\$(ConfigurationName)\$(ProjectName)"
+			ConfigurationType="0"
+			>
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="call $(SolutionDir)ddk_build.bat  $(WINDDK) $(ConfigurationName) $(ProjectDir)"
+				ReBuildCommandLine="call $(SolutionDir)ddk_build.bat  $(WINDDK) $(ConfigurationName) $(ProjectDir)"
+				CleanCommandLine=""
+				Output=""
+				PreprocessorDefinitions=""
+				IncludeSearchPath=""
+				ForcedIncludes=""
+				AssemblySearchPath=""
+				ForcedUsingAssemblies=""
+				CompileAsManaged=""
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="$(SolutionDir)..\bin\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)..\obj\$(ConfigurationName)\$(ProjectName)"
+			ConfigurationType="0"
+			>
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="call $(SolutionDir)ddk_build.bat  $(WINDDK) $(ConfigurationName) $(ProjectDir)"
+				ReBuildCommandLine="call $(SolutionDir)ddk_build.bat  $(WINDDK) $(ConfigurationName) $(ProjectDir)"
+				CleanCommandLine=""
+				Output=""
+				PreprocessorDefinitions=""
+				IncludeSearchPath=""
+				ForcedIncludes=""
+				AssemblySearchPath=""
+				ForcedUsingAssemblies=""
+				CompileAsManaged=""
+			/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="Header Files"
+			>
+			<File
+				RelativePath=".\IrpHandler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MountedDisk.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MountManager.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Source Files"
+			>
+			<File
+				RelativePath=".\IrpHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\main.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MountedDisk.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MountManager.cpp"
+				>
+			</File>
+		</Filter>
+		<File
+			RelativePath=".\Makefile"
+			>
+		</File>
+		<File
+			RelativePath=".\Sources"
+			>
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

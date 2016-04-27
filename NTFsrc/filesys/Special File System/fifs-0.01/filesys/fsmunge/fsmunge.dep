@@ -1,0 +1,30 @@
+# Microsoft Developer Studio Generated Dependency File, included by fsmunge.mak
+
+.\conf_munge.cxx : \
+	"..\..\include\conf_help.hxx"\
+	"..\..\include\debug.hxx"\
+	".\conf_munge.hxx"\
+	
+
+.\fs_munge.cxx : \
+	"..\..\include\autolock.hxx"\
+	"..\..\include\debug.hxx"\
+	"..\..\include\fsinterface.hxx"\
+	".\conf_munge.hxx"\
+	".\fs_munge.hxx"\
+	".\fsdt_munge.hxx"\
+	
+
+.\fsdt_munge.cxx : \
+	"..\..\include\autolock.hxx"\
+	"..\..\include\debug.hxx"\
+	"..\..\include\fsinterface.hxx"\
+	".\fs_munge.hxx"\
+	".\fsdt_munge.hxx"\
+	
+
+.\main_munge.cxx : \
+	"..\..\include\fsinterface.hxx"\
+	".\conf_munge.hxx"\
+	".\fs_munge.hxx"\
+	

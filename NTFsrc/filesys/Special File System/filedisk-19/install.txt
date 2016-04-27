@@ -1,0 +1,12 @@
+Copy the driver (filedisk.sys) to %systemroot%\system32\drivers\.
+
+Optionally edit filedisk.reg for automatic or manual start and
+number of devices.
+
+Import filedisk.reg to the Registry.
+
+Reboot. If using an unsigned driver and running on the 64-bit version
+of Windows press F8 and select "Disable enforce driver signing".
+
+Use the program filedisk.exe to mount and umount disk or CD/DVD
+images.

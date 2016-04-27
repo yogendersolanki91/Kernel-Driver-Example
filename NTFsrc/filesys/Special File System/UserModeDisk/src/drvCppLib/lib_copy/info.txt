@@ -1,0 +1,4 @@
+If you choose Visual Studio 2005 or 2008 you need to copy files from Visual Studio 2003.
+Copy files from:
+C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\crt\src\intel\st_lib\
+(path depends of visual studio install path)

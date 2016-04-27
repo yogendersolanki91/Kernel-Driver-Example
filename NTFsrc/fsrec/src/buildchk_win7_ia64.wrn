@@ -1,0 +1,2 @@
+1>warnings in directory d:\library\ntfsrc\fsrec\src
+1>d:\library\ntfsrc\fsrec\src\sfsrec.c(25) : warning C4273: 'ZwLoadDriver' : inconsistent dll linkage

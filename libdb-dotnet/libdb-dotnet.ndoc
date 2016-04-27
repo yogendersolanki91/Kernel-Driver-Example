@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<project SchemaVersion="2.0">
+    <assemblies>
+        <assembly location=".\src\bin\Release\libdb_dotNET45.dll" documentation=".\src\bin\Release\libdb_dotNET45.xml" />
+        <assembly location=".\Serialization\bin\Release\Kds.Serialization.dll" documentation=".\Serialization\bin\Release\Kds.Serialization.xml" />
+        <assembly location=".\Utils\bin\Release\BerkeleyDb.Utils45.dll" documentation=".\Utils\bin\Release\BerkeleyDb.Utils45.xml" />
+    </assemblies>
+    <documenters>
+        <documenter name="MSDN-Help2">
+            <property name="PlugInNamespace" value="ms.vscc" />
+            <property name="OutputDirectory" value=".\docs\html\" />
+            <property name="HtmlHelpName" value="libdb-dotnet" />
+            <property name="Title" value="Berkeley DB for .NET Help" />
+            <property name="Version" value="0.9" />
+            <property name="AssemblyVersionInfo" value="AssemblyVersion" />
+            <property name="CopyrightText" value="Copyright (C) 2005, 2006 Karl Waclawek" />
+            <property name="FeedbackEmailAddress" value="karl@waclawek.net" />
+        </documenter>
+        <documenter name="XML">
+            <property name="OutputFile" value=".\doc\doc.xml" />
+            <property name="AssemblyVersionInfo" value="AssemblyVersion" />
+            <property name="CopyrightText" value="Copyright (C) 2005, 2006 Karl Waclawek" />
+            <property name="FeedbackEmailAddress" value="karl@waclawek.net" />
+        </documenter>
+        <documenter name="MSDN-CHM">
+            <property name="OutputDirectory" value=".\docs\" />
+            <property name="HtmlHelpName" value="libdb-dotnet45" />
+            <property name="Title" value="Berkeley DB for .NET Help" />
+            <property name="Version" value="0.95" />
+            <property name="DocumentSealedProtected" value="True" />
+            <property name="AssemblyVersionInfo" value="AssemblyVersion" />
+            <property name="CopyrightText" value="Copyright (C) 2005, 2006 Karl Waclawek" />
+            <property name="FeedbackEmailAddress" value="karl@waclawek.net" />
+        </documenter>
+        <documenter name="MSDN-Web">
+            <property name="OutputDirectory" value=".\docs\html\" />
+            <property name="HtmlHelpName" value="libdb-dotnet" />
+            <property name="Title" value="Berkeley DB for .NET Help" />
+            <property name="Version" value="0.9" />
+            <property name="AssemblyVersionInfo" value="AssemblyVersion" />
+            <property name="CopyrightText" value="Copyright (C) 2005, 2006 Karl Waclawek" />
+            <property name="FeedbackEmailAddress" value="karl@waclawek.net" />
+        </documenter>
+        <documenter name="Intellisense">
+            <property name="OutputDirectory" value=".\intellisense\" />
+        </documenter>
+    </documenters>
+</project>

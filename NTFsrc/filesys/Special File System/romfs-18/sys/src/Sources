@@ -1,0 +1,25 @@
+TARGETNAME=romfs
+TARGETPATH=..\obj\$(DDKBUILDENV)
+TARGETTYPE=DRIVER
+INCLUDES=..\inc
+SOURCES=alloc.c    \
+        blockdev.c \
+        char.c     \
+        cleanup.c  \
+        close.c    \
+        cmcb.c     \
+        create.c   \
+        debug.c    \
+        devctl.c   \
+        dirctl.c   \
+        fastio.c   \
+        fileinfo.c \
+        fsctl.c    \
+        fsd.c      \
+        init.c     \
+        lockctl.c  \
+        read.c     \
+        romfsrec.c \
+        string.c   \
+        volinfo.c  \
+        romfs.rc

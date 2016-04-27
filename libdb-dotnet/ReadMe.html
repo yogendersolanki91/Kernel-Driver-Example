@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta content="text/html; charset=iso-8859-1" http-equiv="content-type" />
+  <title>Berkeley DB for .NET</title>
+</head>
+
+<body>
+<h1 style="text-align: center;"><a class="mozTocH1"
+name="mozTocId305920"></a>Berkeley DB for .NET</h1>
+
+<h3><a class="mozTocH3" name="mozTocId944765"></a>Contents</h3>
+<ol>
+  <li><a href="#Introduction">Introduction</a></li>
+  <li><a href="#Build__Installation">Build &amp; Installation</a></li>
+  <li><a href="#Overview">Overview</a>
+    <ul>
+      <li><a href="#Main_Classes">Main Classes</a></li>
+      <li><a href="#Access_Methods_and_Cursors">Access Methods &amp;
+        Cursors</a></li>
+      <li><a href="#Persistence">Object Persistence</a></li>
+    </ul>
+  </li>
+  <li><a href="#License">License</a></li>
+</ol>
+
+<h2>1. <a name="Introduction"></a>Introduction</h2>
+
+<p>Berkeley DB for .NET provides a wrapper library for the Berkeley DB
+database library. It is based on version 2.0 of .NET due to its improved
+support for interoperation with unmanaged code. All CLS compliant .NET
+languages are supported.</p>
+
+<p>Anyone familiar with the C-API should be able to quickly get up to speed
+with the .NET API, which is mostly organized the same way.</p>
+
+<p>Some effort has been made to prevent unmanaged resource leaks even when
+programming errors are made (e.g. not closing a cursor), or when a thread is
+asynchronously aborted (which would prevent regular finalizers from
+executing).</p>
+
+<p>The scope of the .NET API is similar to the Java API, that is, almost all
+of the C API is exposed except for parts of the memory pool API. One can
+enable the rest of the API by defining the symbol BDB_FULL_MPOOL_API in the
+Visual Studio project and rebuilding it.</p>
+
+<h2>2. <a name="Build__Installation"></a>Build &amp; Installation</h2>
+
+<p>This is quite simple. If you have Visual Studio 2005 available, just load
+the BerkeleyDB.sln solution file and build it. Alternatively, you can use
+MSBuild.exe, which is part of the .NET 2.0 framework. For convenience, a
+batch file is provided: msbuild.bat.</p>
+
+<p>The build produces several assemblies, <ul>
+  <li>libdb_dotNET43.dll, the Berkeley DB 4.3.29 bindings for .NET.</li>
+  <li>libdb_dotNET45.dll, the Berkeley DB 4.5.20 bindings for .NET.</li>
+  <li>Kds.Serialization.dll, the serialization framework (independent of
+    Berkeley Db).</li>
+  <li>BerkeleyDb.Utils43.dll, utilities like the <code>BdbFormatter</code>
+    (depends on libdb_dotNET43.dll and Kds.Serialization.dll).</li>
+  <li>BerkeleyDb.Utils45.dll, utilities like the <code>BdbFormatter</code>
+    (depends on libdb_dotNET45.dll and Kds.Serialization.dll).</li>
+</ul>
+They can be installed in the global assembly cache, like in this example:</p>
+<pre><code>    gacutil /i &lt;path&gt;\libdb_dotNET45.dll.</code></pre>
+
+<p>You can find gacutil.exe as part of the .NET 2.0 Framework SDK, which
+comes with Visual Studio 2005, or as a separate free download from
+Microsoft.</p>
+
+<p>The demo applications are (by default) targeted at Berkeley DB 4.5.20, but
+that can be changed by simply modifying the assembly references for the
+Visual Studio projects. </p>
+
+<p>The Berkeley DB library itself - libdb4X.dll - should be installed where
+applications can find it. This is normally done by the install program
+provided by Sleepycat Software.</p>
+If the Berkeley DB library is re-built under Visual Studio 2005, then it is
+necessary to remove _USE_32BIT_TIME_T from the list of conditional
+compilation symbols, as time_t is a 64bit type in newer versions of MS C++.
+
+<h2>3. <a name="Overview"></a>Overview</h2>
+The basic classes and concepts are described below, but for more detail
+consult the documentation in the docs sub-directory. It will also be
+instructive to have a look at the sample applications in the "demo"
+sub-directory.
+
+<h4><a name="Main_Classes"></a>Main Classes</h4>
+
+<p>The main Berkeley DB entities are mapped almost one-to-one to .NET
+classes. This table shows their relationships:</p>
+
+<table border="1" cellpadding="2" cellspacing="2" width="100%">
+  <tbody>
+    <tr>
+      <th>C-API</th>
+      <th>Comments</th>
+      <th>.NET API</th>
+    </tr>
+    <tr>
+      <td><code>struct DB</code></td>
+      <td>database handle, before opening</td>
+      <td><code>class Db</code></td>
+    </tr>
+    <tr>
+      <td><code>struct DB</code></td>
+      <td>opened for BTree access</td>
+      <td><code>class DbBTree</code></td>
+    </tr>
+    <tr>
+      <td><code>struct DB</code></td>
+      <td>opened for Hash access</td>
+      <td><code>class DbHash</code></td>
+    </tr>
+    <tr>
+      <td><code>struct DB</code></td>
+      <td>opened for Queue access</td>
+      <td><code>class DbQueue</code></td>
+    </tr>
+    <tr>
+      <td><code>struct DB</code></td>
+      <td>opened for Recno access</td>
+      <td><code>class DbRecNo</code></td>
+    </tr>
+    <tr>
+      <td><code>struct DBC</code></td>
+      <td>cursor opened on BTree database</td>
+      <td><code>class DbBTreeCursor</code></td>
+    </tr>
+    <tr>
+      <td><code>struct DBC</code></td>
+      <td>cursor opened on Hash database</td>
+      <td><code>class DbHashCursor</code></td>
+    </tr>
+    <tr>
+      <td><code>struct DBC</code></td>
+      <td>cursor opened on Queue database</td>
+      <td><code>class DbQueueCursor</code></td>
+    </tr>
+    <tr>
+      <td><code>struct DBC</code></td>
+      <td>cursor opened on Recno database</td>
+      <td><code>class DbRecNoCursor</code></td>
+    </tr>
+    <tr>
+      <td><code>struct DBC</code></td>
+      <td>returned as join cursor</td>
+      <td><code>class DbJoinCursor</code></td>
+    </tr>
+    <tr>
+      <td><code>struct DBT</code></td>
+      <td>"database thang"</td>
+      <td><code>struct DbEntry</code></td>
+    </tr>
+    <tr>
+      <td><code>struct DB_ENV</code></td>
+      <td>environment</td>
+      <td><code>class Env</code></td>
+    </tr>
+    <tr>
+      <td><code>struct DB_TXN</code></td>
+      <td>transaction</td>
+      <td><code>class Txn</code></td>
+    </tr>
+    <tr>
+      <td><code>struct DB_SEQUENCE</code></td>
+      <td>sequence</td>
+      <td><code>class Sequence</code></td>
+    </tr>
+    <tr>
+      <td><code>struct DB_LOGC</code></td>
+      <td>log cursor</td>
+      <td><code>class LogCursor</code></td>
+    </tr>
+    <tr>
+      <td><code>struct DB_MPOOLFILE</code></td>
+      <td>memory pool (cache) file for database</td>
+      <td><code>class DbCacheFile</code></td>
+    </tr>
+    <tr>
+      <td><code>struct DB_MPOOLFILE</code></td>
+      <td>independent cache file created in environment</td>
+      <td><code>class EnvCacheFile</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>There are additional (supporting) data types that are usually exposed as
+members of an API function signature. Their mappings should be easy to
+discover by comparing C API members to their .NET counterparts.</p>
+
+<h4><a name="Access_Methods_and_Cursors"></a>Access Methods and Cursors</h4>
+
+<p>A little more detail about access methods and cursors is necessary, as the
+mapping is not quite one-to-one. In the C API, one first creates a new
+database handle, then configures it, and finally opens it on a specific file.
+In the .NET API, the first two steps are identical (creation &amp;
+configuration). However, opening the database handle yields a new instance of
+a class specific to the chosen access method. Example:</p>
+<pre><code>   Db db = new Db(DbCreateFlags.None);
+   try {
+     // configure database
+     db.BTreeCompare = MyCompareFunction;
+     db.ErrorStream = MyErrorStream;
+
+     // open file
+     DbBTree btree;
+     DbFile tmpDb =
+       db.Open(null, "MyFile.db", null, DbType.Unknown, Db.OpenFlags.None, 0);
+     if (tmpDb.DbType == DbType.BTree)
+       btree = (DbBTree)tmpDb;
+     else
+       throw new ApplicationException("Unexpected database type.");
+
+     // use database
+   }
+   finally {
+     db.Close();
+   }</code></pre>
+
+<p>This makes it possible to restrict the API so that only members applicable
+to the selected access method are accessible. The same applies to cursors,
+each access method's cursors have the appropriately constrained API. Example
+for basic use of a cursor:</p>
+<pre><code>   DbBTreeCursor cursor = btree.OpenCursor(null, DbFileCursor.CreateFlags.None);
+   try {
+     // allocate buffers of sufficient size for the data to be retrieved
+     DbEntry keyEntry = DbEntry.Out(new byte[256]);
+     DbEntry dataEntry = DbEntry.Out(new byte[2048]);
+
+     while (ReadStatus.Success == cursor.Get(ref keyEntry, ref dataEntry,
+            DbFileCursor.GetMode.Next, DbFileCursor.ReadFlags.None))
+     {
+       // use key and data just retrieved
+     }
+   }
+   finally {
+     cursor.Close();
+   }</code></pre>
+
+<p>In addition, for simple iterations over all entries in a database, or over
+the duplicate entries for a given key, the use of <code>foreach</code> is
+supported, as the cursors implement the <code>IEnumerable</code>
+interface:</p>
+<pre><code>   // simple iteration over all rows
+   foreach (KeyDataPair entry in btree.OpenCursor(null, DbFileCursor.CreateFlags.None)) {
+     // use key and data just retrieved
+   }
+
+   // iteration over duplicates for a given key
+   byte[] buffer = Serialize(keyValue);
+   DbEntry keyEntry = DbEntry.InOut(buffer, 0, buffer.Length);
+   DbBTreeCursor = btree.OpenCursor(null, DbFileCursor.CreateFlags.None);
+   foreach (KeyDataPair entry in cursor.ItemsAt(ref keyEntry, DbFileCursor.ReadFlags.None)) {
+     // use key and data just retrieved
+   }</code></pre>
+
+<p>This will automatically close the cursor as well!</p>
+
+<h4><a name="Persistence"></a>Object Persistence</h4>
+
+<p>In order to make it more efficient to serialize objects, and to provide a
+way to extract partial data from a serialized representation (like a
+secondary key, for instance), a separate serialization framework has been
+provided. It is documented in <a
+href="docs/Serialization of Object Graphs.html">Serialization of Object
+Graphs</a>.</p>
+
+<p>The "getting started" demo application shows how to use it. Here is a
+small example:</p>
+<pre><code>   private BdbFormatter formatter = new BdbFormatter(3, 2048);
+
+   private void Init() {
+     new VendorField(formatter, true);
+   }
+
+   public WriteStatus SaveVendor(Vendor vendor, DbBTree vendorDb) {
+     // serialize key into key buffer
+     DbEntry keyEntry = formatter.ToDbEntry&lt;string&gt;(vendor.Name);
+     // serialize object into data buffer
+     DbEntry dataEntry = formatter.ToDbEntry&lt;Vendor&gt;(vendor);
+     // finally, write record to database
+     return vendorDb.Put(null, ref keyEntry, ref dataEntry, DbFile.WriteFlags.None);
+   }
+
+   public ReadStatus LoadVendor(string name, ref Vendor vendor, DbBTree vendorDb) {
+     // serialize key into key buffer
+     DbEntry keyEntry = formatter.ToDbEntry&lt;string&gt;(name);
+     // initialize DbEntry to receive object data
+     DbEntry dataEntry = DbEntry.Out(formatter.NextBuffer());
+
+     // find record in database
+     ReadStatus status =
+       vendorDb.Get(null, ref keyEntry, ref dataEntry, DbFile.ReadFlags.None);
+
+     // if we found the record, let's de-serialize the object
+     if (status == ReadStatus.Success) {
+       formatter.FromDbEntry&lt;Vendor&gt;(ref vendor, ref dataEntry);
+     }
+     return status;
+   }</code></pre>
+
+<h2>4. <a name="License"></a>License</h2>
+This software is released under the modified BSD license, which can be
+obtained from the <a
+href="http://opensource.org/licenses/bsd-license.html">Open Source Initiative
+(OSI)</a>. It applies to all files that contain a reference to it. This
+reference will contain a file-specific substitution of the fields
+&lt;OWNER&gt;, &lt;ORGANIZATION&gt; and &lt;YEAR&gt; in the license template
+(a copy of which is included with the file BSD-License.txt). If no
+substitution is present, assume the following:
+<pre>&lt;OWNER&gt;=Karl Waclawek
+&lt;ORGANIZATION&gt;=Karl Waclawek
+&lt;YEAR&gt;=2005, 2006</pre>
+<br />
+<br />
+
+
+<p>Please report bugs and suggestions on the SourceForge project site: <a
+href="http://sourceforge.net/projects/libdb-dotnet">Berkeley-DB for
+.NET</a>.</p>
+</body>
+</html>

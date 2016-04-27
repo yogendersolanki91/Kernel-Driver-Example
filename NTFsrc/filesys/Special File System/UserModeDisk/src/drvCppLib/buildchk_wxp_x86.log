@@ -1,0 +1,23 @@
+BUILD: Computing Include file dependencies:
+BUILD: Examining d:\resea\articles\virtualdisk_article\coremnt\src\drvcpplib directory for files to compile.
+Compiling (NoSync) d:\resea\articles\virtualdisk_article\coremnt\src\drvcpplib directory ********************
+'nmake.exe /nologo BUILDMSG=Stop. -i NTTEST= UMTEST= NOLINK=1 NOPASS0=1 PASS1_NOLIB=1 386=1'
+cl -nologo -Ii386\ -I. -Id:\WINDDK\3790.1830\inc\mfc42 -Id:\WINDDK\3790.1830\inc\ddk\wxp -Iobjchk_wxp_x86\i386 -Id:\WINDDK\3790.1830\inc\wxp -Id:\WINDDK\3790.1830\inc\wxp -Id:\WINDDK\3790.1830\inc\ddk\wxp -Id:\WINDDK\3790.1830\inc\ddk\wdm\wxp -Id:\WINDDK\3790.1830\inc\crt -D_X86_=1 -Di386=1  -DSTD_CALL -DCONDITION_HANDLING=1   -DNT_INST=0 -DWIN32=100 -D_NT1X_=100 -DWINNT=1 -D_WIN32_WINNT=0x0501 /DWINVER=0x0501 -D_WIN32_IE=0x0603    -DWIN32_LEAN_AND_MEAN=1 -DDEVL=1 -DDBG=1 -D__BUILDMACHINE__=WinDDK -DFPO=0  -DNDEBUG      /c /Zl /Zp8 /Gy /Gm- -cbstring /W0 /WX /Gz  /GX-  /GR- /GF /GS /G6 /Ze /Gi- /QIfdiv- /hotpatch -Z7 /Od /Oi  /Oy-  /EHa /GL- -FId:\WINDDK\3790.1830\inc\wxp\warning.h   .\except.c 
+except.c
+cl -nologo -Ii386\ -I. -Id:\WINDDK\3790.1830\inc\mfc42 -Id:\WINDDK\3790.1830\inc\ddk\wxp -Iobjchk_wxp_x86\i386 -Id:\WINDDK\3790.1830\inc\wxp -Id:\WINDDK\3790.1830\inc\wxp -Id:\WINDDK\3790.1830\inc\ddk\wxp -Id:\WINDDK\3790.1830\inc\ddk\wdm\wxp -Id:\WINDDK\3790.1830\inc\crt -D_X86_=1 -Di386=1  -DSTD_CALL -DCONDITION_HANDLING=1   -DNT_INST=0 -DWIN32=100 -D_NT1X_=100 -DWINNT=1 -D_WIN32_WINNT=0x0501 /DWINVER=0x0501 -D_WIN32_IE=0x0603    -DWIN32_LEAN_AND_MEAN=1 -DDEVL=1 -DDBG=1 -D__BUILDMACHINE__=WinDDK -DFPO=0  -DNDEBUG      /c /Zl /Zp8 /Gy /Gm- -cbstring /W0 /WX /Gz  /GX-  /GR- /GF /GS /G6 /Ze /Gi- /QIfdiv- /hotpatch -Z7 /Od /Oi  /Oy-  /EHa /GL- -FId:\WINDDK\3790.1830\inc\wxp\warning.h     .\libcpp.cpp .\rtti.cpp 
+libcpp.cpp
+rtti.cpp
+Generating Code...
+
+Stop.
+Compiling  d:\resea\articles\virtualdisk_article\coremnt\src\drvcpplib directory ********************
+'nmake.exe /nologo BUILDMSG=Stop. -i NTTEST= UMTEST= NOLINK=1 NOPASS0=1 386=1'
+	lib -out:..\..\lib\Debug\i386\libcpp.lib -IGNORE:4198,4010,4037,4039,4065,4070,4078,4087,4089,4221   -nodefaultlib -machine:ix86 @C:\Users\genesis\AppData\Local\Temp\nmA573.tmp
+Microsoft (R) Library Manager Version 7.10.4035
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+objchk_wxp_x86\i386\except.obj 
+objchk_wxp_x86\i386\libcpp.obj 
+objchk_wxp_x86\i386\rtti.obj 
+
+Stop.

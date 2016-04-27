@@ -1,0 +1,146 @@
+# Microsoft Developer Studio Generated Dependency File, included by server.mak
+
+.\config.cxx : \
+	"..\..\include\conf_help.hxx"\
+	"..\..\include\debug.hxx"\
+	".\config.hxx"\
+	".\nbhelp.hxx"\
+	
+
+.\filter.cxx : \
+	"..\..\include\debug.hxx"\
+	".\filter.hxx"\
+	
+
+.\main.cxx : \
+	"..\..\include\debug.hxx"\
+	".\config.hxx"\
+	".\nbhelp.hxx"\
+	".\server.hxx"\
+	
+
+.\nbhelp.cxx : \
+	".\nbhelp.hxx"\
+	
+
+.\queue.cxx : \
+	".\queue.hxx"\
+	
+
+.\server.cxx : \
+	"..\..\include\debug.hxx"\
+	"..\..\include\fsinterface.hxx"\
+	"..\..\include\mycifs.h"\
+	"..\..\include\smb\cifs.h"\
+	"..\..\include\smb\packoff.h"\
+	"..\..\include\smb\packon.h"\
+	"..\..\include\smb\smb.h"\
+	"..\..\include\smb\smbgtpt.h"\
+	"..\..\include\smb\smbmacro.h"\
+	"..\..\include\smb\smbtrans.h"\
+	"..\..\include\smb\smbtypes.h"\
+	"..\..\include\smb\status.h"\
+	".\config.hxx"\
+	".\filter.hxx"\
+	".\nbhelp.hxx"\
+	".\queue.hxx"\
+	".\server.hxx"\
+	".\smball.hxx"\
+	".\smbcom.hxx"\
+	".\smbglue.hxx"\
+	".\smbutil.hxx"\
+	".\trans2.hxx"\
+	
+
+.\smbcom.cxx : \
+	"..\..\include\debug.hxx"\
+	"..\..\include\fsinterface.hxx"\
+	"..\..\include\mycifs.h"\
+	"..\..\include\smb\cifs.h"\
+	"..\..\include\smb\packoff.h"\
+	"..\..\include\smb\packon.h"\
+	"..\..\include\smb\smb.h"\
+	"..\..\include\smb\smbgtpt.h"\
+	"..\..\include\smb\smbmacro.h"\
+	"..\..\include\smb\smbtrans.h"\
+	"..\..\include\smb\smbtypes.h"\
+	"..\..\include\smb\status.h"\
+	".\config.hxx"\
+	".\filter.hxx"\
+	".\nbhelp.hxx"\
+	".\smball.hxx"\
+	".\smbcom.hxx"\
+	".\smbglue.hxx"\
+	".\smbutil.hxx"\
+	".\trans2.hxx"\
+	
+
+.\smbglue.cxx : \
+	"..\..\include\autolock.hxx"\
+	"..\..\include\fsinterface.hxx"\
+	"..\..\include\htab.h"\
+	"..\..\include\mycifs.h"\
+	"..\..\include\smb\cifs.h"\
+	"..\..\include\smb\packoff.h"\
+	"..\..\include\smb\packon.h"\
+	"..\..\include\smb\smb.h"\
+	"..\..\include\smb\smbgtpt.h"\
+	"..\..\include\smb\smbmacro.h"\
+	"..\..\include\smb\smbtrans.h"\
+	"..\..\include\smb\smbtypes.h"\
+	"..\..\include\smb\status.h"\
+	".\config.hxx"\
+	".\filter.hxx"\
+	".\nbhelp.hxx"\
+	".\smball.hxx"\
+	".\smbcom.hxx"\
+	".\smbglue.hxx"\
+	".\smbutil.hxx"\
+	".\trans2.hxx"\
+	
+
+.\smbutil.cxx : \
+	"..\..\include\debug.hxx"\
+	"..\..\include\fsinterface.hxx"\
+	"..\..\include\mycifs.h"\
+	"..\..\include\smb\cifs.h"\
+	"..\..\include\smb\packoff.h"\
+	"..\..\include\smb\packon.h"\
+	"..\..\include\smb\smb.h"\
+	"..\..\include\smb\smbgtpt.h"\
+	"..\..\include\smb\smbmacro.h"\
+	"..\..\include\smb\smbtrans.h"\
+	"..\..\include\smb\smbtypes.h"\
+	"..\..\include\smb\status.h"\
+	".\config.hxx"\
+	".\filter.hxx"\
+	".\nbhelp.hxx"\
+	".\smball.hxx"\
+	".\smbcom.hxx"\
+	".\smbglue.hxx"\
+	".\smbutil.hxx"\
+	".\trans2.hxx"\
+	
+
+.\trans2.cxx : \
+	"..\..\include\debug.hxx"\
+	"..\..\include\fsinterface.hxx"\
+	"..\..\include\mycifs.h"\
+	"..\..\include\smb\cifs.h"\
+	"..\..\include\smb\packoff.h"\
+	"..\..\include\smb\packon.h"\
+	"..\..\include\smb\smb.h"\
+	"..\..\include\smb\smbgtpt.h"\
+	"..\..\include\smb\smbmacro.h"\
+	"..\..\include\smb\smbtrans.h"\
+	"..\..\include\smb\smbtypes.h"\
+	"..\..\include\smb\status.h"\
+	".\config.hxx"\
+	".\filter.hxx"\
+	".\nbhelp.hxx"\
+	".\smball.hxx"\
+	".\smbcom.hxx"\
+	".\smbglue.hxx"\
+	".\smbutil.hxx"\
+	".\trans2.hxx"\
+	

@@ -1,0 +1,18 @@
+﻿Build started 5/25/2015 1:28:30 AM.
+     1>Project "D:\Kernel Code\Repo FileSystem Samples\NTFsrc\filesys\Special File System\vfdsrc-080206\gui\vfdwin.vcxproj" on node 3 (Build target(s)).
+     1>CustomBuild:
+         Compiling Message - D:\Kernel Code\Repo FileSystem Samples\NTFsrc\filesys\Special File System\vfdsrc-080206\gui\vfdmsg.mc
+     1>mc : error : 0x2 trying to open file <vfdmsg>.
+         Compiling Resource - D:\Kernel Code\Repo FileSystem Samples\NTFsrc\filesys\Special File System\vfdsrc-080206\gui\vfdwin.rs
+         Microsoft (R) Windows (R) Resource Compiler Version 6.3.9600.16384
+         
+         Copyright (C) Microsoft Corporation.  All rights reserved.
+         
+         
+     1>CUSTOMBUILD : fatal error RC1107: invalid usage; use RC /? for Help
+         
+     1>Done Building Project "D:\Kernel Code\Repo FileSystem Samples\NTFsrc\filesys\Special File System\vfdsrc-080206\gui\vfdwin.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.77

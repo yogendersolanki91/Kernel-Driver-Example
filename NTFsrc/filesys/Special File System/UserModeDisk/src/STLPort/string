@@ -1,0 +1,226 @@
+#ifndef CPP_STRING_OVER_VECTOR_H_INCLUDED
+#define CPP_STRING_OVER_VECTOR_H_INCLUDED
+
+#include "vector"
+#include "algorithm"
+
+#include "xstring_"
+
+namespace std
+{
+template<class charType,
+	class _Alloc> inline
+	basic_string<charType, _Alloc>  operator+(
+    	const basic_string<charType,  _Alloc>& _Left,
+    	const basic_string<charType,  _Alloc>& _Right)
+    {    // return string + string
+	return (basic_string<charType, _Alloc>(_Left) += _Right);
+    }
+
+template<class charType,
+	class _Alloc> inline
+	basic_string<charType, _Alloc>  operator+(
+    	const charType *_Left,
+    	const basic_string<charType, _Alloc>& _Right)
+    {    // return NTCS + string
+	return (basic_string<charType, _Alloc>(_Left) += _Right);
+    }
+
+template<class charType,
+	class _Alloc> inline
+	basic_string<charType, _Alloc>  operator+(
+    	const charType _Left,
+    	const basic_string<charType, _Alloc>& _Right)
+    {    // return character + string
+	return (basic_string<charType, _Alloc>(1, _Left) += _Right);
+    }
+
+template<class charType,
+	class _Alloc> inline
+	basic_string<charType, _Alloc>  operator+(
+    	const basic_string<charType, _Alloc>& _Left,
+    	const charType *_Right)
+    {    // return string + NTCS
+	return (basic_string<charType, _Alloc>(_Left) += _Right);
+    }
+
+template<class charType,
+	class _Alloc> inline
+	basic_string<charType, _Alloc>  operator+(
+    	const basic_string<charType, _Alloc>& _Left,
+    	const charType _Right)
+    {    // return string + character
+	return (basic_string<charType, _Alloc>(_Left) += _Right);
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator==(
+    	const basic_string<charType, _Alloc>& _Left,
+    	const basic_string<charType, _Alloc>& _Right)
+    {    // test for string equality
+	return (_Left.compare(_Right) == 0);
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator==(
+    	const charType * _Left,
+    	const basic_string<charType, _Alloc>& _Right)
+    {    // test for NTCS vs. string equality
+	return (_Right.compare(_Left) == 0);
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator==(
+    	const basic_string<charType, _Alloc>& _Left,
+    	const charType *_Right)
+    {    // test for string vs. NTCS equality
+	return (_Left.compare(_Right) == 0);
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator!=(
+    	const basic_string<charType, _Alloc>& _Left,
+    	const basic_string<charType, _Alloc>& _Right)
+    {    // test for string inequality
+	return (!(_Left == _Right));
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator!=(
+    	const charType *_Left,
+    	const basic_string<charType, _Alloc>& _Right)
+    {    // test for NTCS vs. string inequality
+	return (!(_Left == _Right));
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator!=(
+    	const basic_string<charType, _Alloc>& _Left,
+    	const charType *_Right)
+    {    // test for string vs. NTCS inequality
+	return (!(_Left == _Right));
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator<(
+    	const basic_string<charType, _Alloc>& _Left,
+    	const basic_string<charType, _Alloc>& _Right)
+    {    // test if string < string
+	return (_Left.compare(_Right) < 0);
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator<(
+    	const charType * _Left,
+    	const basic_string<charType, _Alloc>& _Right)
+    {    // test if NTCS < string
+	return (_Right.compare(_Left) > 0);
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator<(
+    	const basic_string<charType, _Alloc>& _Left,
+    	const charType *_Right)
+    {    // test if string < NTCS
+	return (_Left.compare(_Right) < 0);
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator>(
+    	const basic_string<charType, _Alloc>& _Left,
+    	const basic_string<charType, _Alloc>& _Right)
+    {    // test if string > string
+	return (_Right < _Left);
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator>(
+    	const charType * _Left,
+    	const basic_string<charType, _Alloc>& _Right)
+    {    // test if NTCS > string
+	return (_Right < _Left);
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator>(
+    	const basic_string<charType, _Alloc>& _Left,
+    	const charType *_Right)
+    {    // test if string > NTCS
+	return (_Right < _Left);
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator<=(
+    	const basic_string<charType, _Alloc>& _Left,
+    	const basic_string<charType, _Alloc>& _Right)
+    {    // test if string <= string
+	return (!(_Right < _Left));
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator<=(
+    	const charType * _Left,
+    	const basic_string<charType, _Alloc>& _Right)
+    {    // test if NTCS <= string
+	return (!(_Right < _Left));
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator<=(
+    	const basic_string<charType, _Alloc>& _Left,
+    	const charType *_Right)
+    {    // test if string <= NTCS
+	return (!(_Right < _Left));
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator>=(
+    	const basic_string<charType, _Alloc>& _Left,
+    	const basic_string<charType, _Alloc>& _Right)
+    {    // test if string >= string
+	return (!(_Left < _Right));
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator>=(
+    	const charType * _Left,
+    	const basic_string<charType, _Alloc>& _Right)
+    {    // test if NTCS >= string
+	return (!(_Left < _Right));
+    }
+
+template<class charType,
+	class _Alloc> inline
+	bool  operator>=(
+    	const basic_string<charType, _Alloc>& _Left,
+    	const charType *_Right)
+    {    // test if string >= NTCS
+	return (!(_Left < _Right));
+    }
+
+
+
+
+typedef std::basic_string<char> string;
+typedef std::basic_string<wchar_t> wstring;
+
+}//namespace std
+
+#endif

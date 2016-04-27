@@ -1,0 +1,91 @@
+# Microsoft Developer Studio Generated Dependency File, included by netapi32.mak
+
+.\config.c : \
+	".\config.h"\
+	
+
+.\dumpsmb.c : \
+	"..\..\include\mycifs.h"\
+	"..\..\include\smb\cifs.h"\
+	"..\..\include\smb\packoff.h"\
+	"..\..\include\smb\packon.h"\
+	"..\..\include\smb\smb.h"\
+	"..\..\include\smb\smbgtpt.h"\
+	"..\..\include\smb\smbmacro.h"\
+	"..\..\include\smb\smbtrans.h"\
+	"..\..\include\smb\smbtypes.h"\
+	"..\..\include\smb\status.h"\
+	".\config.h"\
+	".\dumpsmb.h"\
+	".\hash.hpp"\
+	".\smball.h"\
+	".\smbcom.h"\
+	".\smbutil.h"\
+	".\trans2.h"\
+	
+
+.\hash.cpp : \
+	".\hash.hpp"\
+	
+
+.\main.c : \
+	".\config.h"\
+	".\dumpsmb.h"\
+	
+
+.\smbcom.c : \
+	"..\..\include\mycifs.h"\
+	"..\..\include\smb\cifs.h"\
+	"..\..\include\smb\packoff.h"\
+	"..\..\include\smb\packon.h"\
+	"..\..\include\smb\smb.h"\
+	"..\..\include\smb\smbgtpt.h"\
+	"..\..\include\smb\smbmacro.h"\
+	"..\..\include\smb\smbtrans.h"\
+	"..\..\include\smb\smbtypes.h"\
+	"..\..\include\smb\status.h"\
+	".\dumpsmb.h"\
+	".\hash.hpp"\
+	".\smball.h"\
+	".\smbcom.h"\
+	".\smbutil.h"\
+	".\trans2.h"\
+	
+
+.\smbutil.c : \
+	"..\..\include\mycifs.h"\
+	"..\..\include\smb\cifs.h"\
+	"..\..\include\smb\packoff.h"\
+	"..\..\include\smb\packon.h"\
+	"..\..\include\smb\smb.h"\
+	"..\..\include\smb\smbgtpt.h"\
+	"..\..\include\smb\smbmacro.h"\
+	"..\..\include\smb\smbtrans.h"\
+	"..\..\include\smb\smbtypes.h"\
+	"..\..\include\smb\status.h"\
+	".\dumpsmb.h"\
+	".\hash.hpp"\
+	".\smball.h"\
+	".\smbcom.h"\
+	".\smbutil.h"\
+	".\trans2.h"\
+	
+
+.\trans2.c : \
+	"..\..\include\mycifs.h"\
+	"..\..\include\smb\cifs.h"\
+	"..\..\include\smb\packoff.h"\
+	"..\..\include\smb\packon.h"\
+	"..\..\include\smb\smb.h"\
+	"..\..\include\smb\smbgtpt.h"\
+	"..\..\include\smb\smbmacro.h"\
+	"..\..\include\smb\smbtrans.h"\
+	"..\..\include\smb\smbtypes.h"\
+	"..\..\include\smb\status.h"\
+	".\dumpsmb.h"\
+	".\hash.hpp"\
+	".\smball.h"\
+	".\smbcom.h"\
+	".\smbutil.h"\
+	".\trans2.h"\
+	

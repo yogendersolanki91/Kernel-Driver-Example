@@ -1,0 +1,13 @@
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\etc\fifs\test\W32-1]
+"LocalName"="%m-W32-1"
+"FsConfig"="fswin32"
+"FsDll"="fswin32.dll"
+"FsName"="fswin32"
+"NumWorkers"=dword:00000001
+"NumSenders"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\etc\fifs\test\W32-1\fswin32]
+"Label"="W32-1"
+"Root"="g:\\fsroot"

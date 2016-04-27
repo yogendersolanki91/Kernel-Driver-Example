@@ -1,0 +1,30 @@
+# Microsoft Developer Studio Generated Dependency File, included by fswin32.mak
+
+.\conf_win32.cxx : \
+	"..\..\include\conf_help.hxx"\
+	"..\..\include\debug.hxx"\
+	".\conf_win32.hxx"\
+	
+
+.\fs_win32.cxx : \
+	"..\..\include\autolock.hxx"\
+	"..\..\include\fsinterface.hxx"\
+	".\conf_win32.hxx"\
+	".\fs_win32.hxx"\
+	".\fsdt_win32.hxx"\
+	
+
+.\fsdt_win32.cxx : \
+	"..\..\include\autolock.hxx"\
+	"..\..\include\debug.hxx"\
+	"..\..\include\fsinterface.hxx"\
+	".\conf_win32.hxx"\
+	".\fs_win32.hxx"\
+	".\fsdt_win32.hxx"\
+	
+
+.\main_win32.cxx : \
+	"..\..\include\fsinterface.hxx"\
+	".\conf_win32.hxx"\
+	".\fs_win32.hxx"\
+	

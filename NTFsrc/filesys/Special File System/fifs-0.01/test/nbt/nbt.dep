@@ -1,0 +1,33 @@
+# Microsoft Developer Studio Generated Dependency File, included by nbt.mak
+
+.\buffers.c : \
+	".\buffers.h"\
+	
+
+.\dispatch.cpp : \
+	".\dispatch.hpp"\
+	
+
+.\main.cpp : \
+	".\dispatch.hpp"\
+	
+
+.\nbhelp.c : \
+	".\nbhelp.h"\
+	".\ncbutil.h"\
+	
+
+.\ncbutil.c : \
+	".\ncbutil.h"\
+	
+
+.\pass.c : \
+	".\buffers.h"\
+	".\nbhelp.h"\
+	".\ncbutil.h"\
+	
+
+.\tests.c : \
+	".\nbhelp.h"\
+	".\ncbutil.h"\
+	

@@ -1,0 +1,27 @@
+				 FIFS
+	Framework for Implementing File Systems in Windows NT
+
+			     version 0.01
+
+
+Please read COPYING for licensing terms.
+
+This is way pre-release.  It is essentially my thesis code with a
+slight change for performance.  This change has not yet been tested
+for performance, however.
+
+The distribution does not include the Microsoft SMB header files I
+used in the project.  (Hopefully MS will release these in their SDK
+soon, otherwise someone will have to write one to include here.)
+
+I would love to incorporate any changes you would care to submit into
+it and put out newer and better releases.
+
+You will need an RPC package to build the fsnfs code.  I used the one
+included in FroNT RPC.  Just unzip it into ../frontrpc (as opposed to
+../frontrpc-X.Y) and build it.
+
+To build FIFS, simply run "nmake all" for the debug build or "nmake
+all NODEBUG=1" for a release build.
+
+- Danilo Almeida (dalmeida@mit.edu)

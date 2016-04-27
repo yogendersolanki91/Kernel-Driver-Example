@@ -1,0 +1,28 @@
+MUI_386_OBJECTS=
+
+386_OBJECTS= \
+    $(_OBJ_DIR)\i386\except.obj \
+    $(_OBJ_DIR)\i386\libcpp.obj \
+    $(_OBJ_DIR)\i386\rtti.obj
+
+MUI_IA64_OBJECTS=
+
+IA64_OBJECTS= \
+    $(_OBJ_DIR)\ia64\except.obj \
+    $(_OBJ_DIR)\ia64\libcpp.obj \
+    $(_OBJ_DIR)\ia64\rtti.obj
+
+MUI_AMD64_OBJECTS=
+
+AMD64_OBJECTS= \
+    $(_OBJ_DIR)\amd64\except.obj \
+    $(_OBJ_DIR)\amd64\libcpp.obj \
+    $(_OBJ_DIR)\amd64\rtti.obj
+
+MUI_ARM_OBJECTS=
+
+ARM_OBJECTS= \
+    $(_OBJ_DIR)\arm\except.obj \
+    $(_OBJ_DIR)\arm\libcpp.obj \
+    $(_OBJ_DIR)\arm\rtti.obj
+

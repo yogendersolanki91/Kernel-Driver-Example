@@ -1,0 +1,6 @@
+TARGETNAME=unload
+TARGETPATH=obj
+TARGETTYPE=PROGRAM
+UMTYPE=console
+USE_MSVCRT=1
+SOURCES=unload.c unload.rc

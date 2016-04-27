@@ -1,0 +1,31 @@
+TARGETNAME=MntDrv
+TARGETPATH=$(SolutionDir)..\..\bin\$(PROJECT_CONFIGURATION_NAME)
+TARGETTYPE=DRIVER
+
+MSC_WARNING_LEVEL = /W0
+
+C_DEFINES=$(C_DEFINES)
+
+LINKER_FLAGS=/ignore:4075 /FORCE:MULTIPLE
+
+INCLUDES= $(SolutionDir)..\STLPort;           \
+          $(IFSKIT_INC_PATH);                 \
+          $(CRT_INC_PATH);                    \
+          $(SolutionDir)..\drvCppLib;         \
+          $(SolutionDir)..\UtilsPortable;     \
+          $(SolutionDir)..\drvUtils;          \
+          $(SolutionDir)..\mnt_cmn;          \
+          $(BOOST);                           \
+          $(SolutionDir)..\Common;
+
+TARGETLIBS= $(BASEDIR)\lib\wnet\i386\ntoskrnl.lib   \
+            $(BASEDIR)\lib\wnet\i386\hal.lib        \
+            $(BASEDIR)\lib\wnet\i386\ntstrsafe.lib  \
+            $(SolutionDir)..\..\lib\$(PROJECT_CONFIGURATION_NAME)\*\libcppvc7.lib
+
+USER_C_FLAGS=/EHa /GR
+
+SOURCES= IrpHandler.cpp \
+         MountedDisk.cpp \
+         MountManager.cpp \
+         main.cpp
